@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Infinite Endless Scroll</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+    background:#101010;
+    color:white;
+    overflow-x:hidden;
+
+}
+
+header{
+
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px;
+    background:#111;
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    z-index:1000;
+    box-shadow:0 5px 20px rgba(0,0,0,.5);
+
+}
+
+#container{
+
+    width:95%;
+    max-width:1200px;
+    margin:100px auto;
+
+}
+
+.card{
+
+    margin:25px 0;
+    padding:30px;
+    border-radius:20px;
+    background:#1c1c1c;
+    transition:.3s;
+    overflow:hidden;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card img{
+
+    width:100%;
+    border-radius:15px;
+    margin-top:20px;
+
+}
+
+.card h2{
+
+    font-size:30px;
+    margin-bottom:15px;
+
+}
+
+.card p{
+
+    line-height:1.8;
+    color:#ddd;
+
+}
+
+footer{
+
+    text-align:center;
+    padding:40px;
+    color:#888;
+
+}
+
+.loader{
+
+    text-align:center;
+    padding:40px;
+    font-size:20px;
+    color:#00d9ff;
+
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+🌍 Endless Infinite Website
+
+</header>
+
+<div id="container"></div>
+
+<div class="loader">
+
+Loading More...
+
+</div>
+
+<footer>
+
+This page never ends.
+
+</footer>
+
+<script>
+
+const container=document.getElementById("container");
+
+const titles=[
+
+"Artificial Intelligence",
+"Space Exploration",
+"Future Technology",
+"Ocean Discovery",
+"Renewable Energy",
+"Cyber Security",
+"Electric Vehicles",
+"Nature Wonders",
+"Music Around World",
+"Ancient Civilizations",
+"Programming",
+"Photography",
+"Astronomy",
+"Robotics",
+"Travel Diaries"
+
+];
+
+const paragraphs=[
+
+"Technology is evolving every day. Scientists and engineers continue developing innovative solutions that improve human life.",
+
+"Every new discovery expands our understanding of the universe and opens opportunities for future generations.",
+
+"Creativity and technology together can build amazing products that solve real-world problems.",
+
+"Learning something new every day keeps the brain active and helps build valuable skills.",
+
+"The internet connects billions of people across the world and enables instant communication.",
+
+"Artificial intelligence is becoming part of healthcare, education, transportation and entertainment.",
+
+"Renewable energy sources reduce pollution and create a cleaner environment.",
+
+"Exploring nature teaches us how ecosystems survive and remain balanced."
+
+];
+
+const images=[
+
+"https://picsum.photos/900/500?random=1",
+"https://picsum.photos/900/500?random=2",
+"https://picsum.photos/900/500?random=3",
+"https://picsum.photos/900/500?random=4",
+"https://picsum.photos/900/500?random=5",
+"https://picsum.photos/900/500?random=6",
+"https://picsum.photos/900/500?random=7",
+"https://picsum.photos/900/500?random=8",
+"https://picsum.photos/900/500?random=9",
+"https://picsum.photos/900/500?random=10"
+
+];
+
+let sectionNumber=1;
+
+function randomItem(array){
+
+    return array[Math.floor(Math.random()*array.length)];
+
+}
+
+function createCard(){
+
+    const card=document.createElement("div");
+
+    card.className="card";
+
+    const randomImage="https://picsum.photos/900/500?random="+Math.floor(Math.random()*100000);
+
+    card.innerHTML=`
+
+        <h2>${sectionNumber}. ${randomItem(titles)}</h2>
+
+        <p>
+
+        ${randomItem(paragraphs)}
+
+        <br><br>
+
+        ${randomItem(paragraphs)}
+
+        <br><br>
+
+        ${randomItem(paragraphs)}
+
+        </p>
+
+        <img src="${randomImage}" loading="lazy">
+
+    `;
+
+    container.appendChild(card);
+
+    sectionNumber++;
+
+    if(container.children.length>40){
+
+        container.removeChild(container.firstChild);
+
+    }
+
+}
+
+function loadCards(){
+
+    for(let i=0;i<5;i++){
+
+        createCard();
+
+    }
+
+}
+
+loadCards();
+
+window.addEventListener("scroll",()=>{
+
+    if(window.innerHeight+window.scrollY>=document.body.offsetHeight-500){
+
+        loadCards();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
